@@ -7,10 +7,6 @@ import { RouterLink } from '@angular/router';
 import { PageHeader } from '../../shared/page-header';
 import { addMonths, currentYearMonth, formatYearMonth, YearMonth } from '../../shared/year-month';
 
-/**
- * The Excel replacement: one month of planned vs actual income and expenses.
- * `ym` is bound from the `:ym` route parameter (withComponentInputBinding).
- */
 @Component({
   selector: 'app-month-page',
   imports: [PageHeader, RouterLink, MatButtonModule, MatIconModule, MatTooltipModule, MatCardModule],

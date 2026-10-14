@@ -1,4 +1,3 @@
-/** A calendar month in the API format `YYYY-MM`, e.g. `2026-10` (Java's `YearMonth.toString()`). */
 export type YearMonth = string;
 
 const YEAR_MONTH_PATTERN = /^(\d{4})-(0[1-9]|1[0-2])$/;
@@ -17,7 +16,6 @@ export function addMonths(ym: YearMonth, delta: number): YearMonth {
   return toYearMonth(Math.floor(zeroBased / 12), (zeroBased % 12) + 1);
 }
 
-/** Human-readable label, e.g. "October 2026". */
 export function formatYearMonth(ym: YearMonth, locale?: string): string {
   const [year, month] = parse(ym);
   return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(

@@ -17,12 +17,10 @@ interface NavItem {
   label: string;
   icon: string;
   link: string;
-  /** First URL segment that marks this item as active, e.g. `months` for `/months/2026-10`. */
   section: string;
   roles?: Role[];
 }
 
-/** Layout for every signed-in page: side navigation, top toolbar with the user menu, content area. */
 @Component({
   selector: 'app-shell',
   imports: [
@@ -67,7 +65,6 @@ export class Shell {
       { label: 'Categories', icon: 'category', link: '/categories', section: 'categories' },
       { label: 'Users', icon: 'group', link: '/admin/users', section: 'admin', roles: ['ADMIN'] },
     ];
-    // hasRole() reads the user signal, so this list updates when the user changes.
     return items.filter((item) => !item.roles || this.auth.hasRole(...item.roles));
   });
 

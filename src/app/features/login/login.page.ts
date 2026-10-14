@@ -57,7 +57,7 @@ export class LoginPage {
 
   private returnUrl(): string {
     const url = this.route.snapshot.queryParamMap.get('returnUrl');
-    // Only accept app-internal paths.
+    // only app-internal paths, never an external redirect
     return url && url.startsWith('/') && !url.startsWith('//') ? url : '/';
   }
 }

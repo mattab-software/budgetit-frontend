@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs';
 
-/** Tells the user when a new deployed version of the app is ready and offers to reload. */
 @Injectable({ providedIn: 'root' })
 export class AppUpdateService {
   private readonly updates = inject(SwUpdate);
@@ -11,7 +10,7 @@ export class AppUpdateService {
 
   start(): void {
     if (!this.updates.isEnabled) {
-      return; // the service worker only runs in production builds
+      return;
     }
 
     this.updates.versionUpdates

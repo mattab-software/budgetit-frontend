@@ -1,6 +1,5 @@
 import { Component, input } from '@angular/core';
 
-/** Page title row; anything placed inside the tag (buttons, pickers) is shown on the right. */
 @Component({
   selector: 'app-page-header',
   template: `

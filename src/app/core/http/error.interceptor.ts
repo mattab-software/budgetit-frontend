@@ -6,18 +6,12 @@ import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { SKIP_GLOBAL_ERROR_HANDLING } from './http-context';
 
-/** Subset of RFC 9457 problem details, as produced by Spring's `ProblemDetail`. */
 interface ProblemDetail {
   title?: string;
   detail?: string;
   status?: number;
 }
 
-/**
- * Global HTTP error handling (the frontend counterpart of a servlet filter):
- * 401 -> session expired, go to /login; anything else -> show a snackbar.
- * The error is re-thrown so callers can still react to it.
- */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.context.get(SKIP_GLOBAL_ERROR_HANDLING)) {
     return next(req);

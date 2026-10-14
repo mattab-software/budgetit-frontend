@@ -4,10 +4,6 @@ import { finalize, firstValueFrom, Observable, tap } from 'rxjs';
 import { skipGlobalErrorHandling } from '../http/http-context';
 import { CurrentUser, LoginRequest, Role } from './current-user';
 
-/**
- * Holds the signed-in user. Authentication itself is a Spring Security session cookie,
- * so there is no token to store; the browser sends the cookie automatically.
- */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
@@ -16,10 +12,6 @@ export class AuthService {
   readonly user = this.currentUser.asReadonly();
   readonly isAuthenticated = computed(() => this.currentUser() !== null);
 
-  /**
-   * Runs once at startup: if the session cookie is still valid, the user stays signed in.
-   * Also makes the backend issue the XSRF-TOKEN cookie needed for the login POST.
-   */
   async restoreSession(): Promise<void> {
     try {
       const user = await firstValueFrom(

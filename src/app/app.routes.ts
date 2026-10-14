@@ -4,7 +4,6 @@ import { authGuard, guestGuard, roleGuard } from './core/auth/auth.guards';
 import { Shell } from './layout/shell';
 import { currentYearMonth, isYearMonth } from './shared/year-month';
 
-/** `/months/garbage` -> current month. */
 const validMonthGuard: CanActivateFn = (route) =>
   isYearMonth(route.paramMap.get('ym')) ||
   inject(Router).createUrlTree(['/months', currentYearMonth()]);
@@ -17,7 +16,6 @@ export const routes: Routes = [
     loadComponent: () => import('./features/login/login.page').then((m) => m.LoginPage),
   },
   {
-    // Everything below requires a signed-in user and is rendered inside the shell layout.
     path: '',
     component: Shell,
     canActivate: [authGuard],

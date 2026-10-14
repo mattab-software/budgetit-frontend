@@ -1,0 +1,60 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    #drawer
+    class="shell__nav"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()"
+  >
+    <div class="shell__brand">
+      <mat-icon>account_balance_wallet</mat-icon>
+      <span>BudgetIt</span>
+    </div>
+
+    <mat-nav-list>
+      @for (item of navItems(); track item.section) {
+        <a
+          mat-list-item
+          [routerLink]="item.link"
+          [activated]="isActive(item)"
+          (click)="isHandset() && drawer.close()"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__main">
+    <mat-toolbar class="shell__toolbar">
+      @if (isHandset()) {
+        <button mat-icon-button aria-label="Toggle navigation" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>BudgetIt</span>
+      }
+      <span class="shell__spacer"></span>
+
+      @if (user(); as u) {
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>account_circle</mat-icon>
+          {{ u.displayName }}
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <div class="shell__user-info">
+            <div>{{ u.email }}</div>
+            <div class="shell__role">{{ u.role }}</div>
+          </div>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Sign out</span>
+          </button>
+        </mat-menu>
+      }
+    </mat-toolbar>
+
+    <main class="shell__content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
